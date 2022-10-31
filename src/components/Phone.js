@@ -1,7 +1,5 @@
-import { useState } from "react";
 
 const Phone = ({ createRoom }) => {
-    const [text, setText] = useState("Room Name");
 
     return (
         <div className="h-[60%] rounded-2xl absolute sm:relative sm:h-[80%] z-10 bg-[#000000] sm:bg-transparent ">
