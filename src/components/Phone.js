@@ -11,7 +11,7 @@ const Phone = ({ createRoom }) => {
                         <rect x="4" width="391" height="96.2069" rx="23" fill="#FEF6EC" />
                     </g>
                     <path fill="black" />
-                    <text x="25%" y="60" font-family="Verdana" font-size="35" fill="blue">{createRoom}</text>
+                    <text x="25%" y="60" fontFamily="Verdana" fontSize="35" fill="blue">{createRoom}</text>
                     <rect x="76" y="159.157" width="205" height="150.843" rx="23" fill="#D9D9D9" />
                     <rect x="179" y="336.13" width="205" height="66.5134" rx="23" fill="#D9D9D9" />
                     <ellipse cx="40" cy="176.973" rx="27" ry="32.069" fill="#D9D9D9" />
@@ -24,8 +24,8 @@ const Phone = ({ createRoom }) => {
                 </g>
                 <defs>
                     <filter id="filter0_d_3_16" x="0" y="0" width="399" height="628" filterUnits="userSpaceOnUse"
-                        color-interpolation-filters="sRGB">
-                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                        colorInterpolationFilters="sRGB">
+                        <feFlood floodOpacity="0" result="BackgroundImageFix" />
                         <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
                             result="hardAlpha" />
                         <feOffset dy="4" />
@@ -36,8 +36,8 @@ const Phone = ({ createRoom }) => {
                         <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_3_16" result="shape" />
                     </filter>
                     <filter id="filter1_d_3_16" x="3" y="0" width="393" height="99.2069" filterUnits="userSpaceOnUse"
-                        color-interpolation-filters="sRGB">
-                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                        colorInterpolationFilters="sRGB">
+                        <feFlood floodOpacity="0" result="BackgroundImageFix" />
                         <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
                             result="hardAlpha" />
                         <feMorphology radius="1" operator="dilate" in="SourceAlpha" result="effect1_dropShadow_3_16" />

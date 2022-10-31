@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Phone from "../components/Phone";
 import Background from "../components/Background";
 
-const Home = ({ colors, rooms }) => {
+const Home = ({ colors }) => {
     const [showCreate, setShowCreate] = useState(false);
     const [inputText, setInputText] = useState("Room Name");
 
@@ -35,7 +35,6 @@ const Home = ({ colors, rooms }) => {
                     </div>
                 </div>
             </div>
-
             <Background />
         </header>
     )
