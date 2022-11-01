@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 // Components
 import Home from "./pages/Home";
 import JoinRoomPage from './pages/JoinRoomPage';
+import ChatRoomPage from './pages/ChatRoomPage';
 
 import "./input.css";
 
@@ -68,6 +69,36 @@ const rooms =
     },
   ];
 
+const chat = [
+  {
+    name: "John",
+    message: "Hello world",
+    id: uuidv4(),
+    local: false,
+  },
+  {
+    name: "Sara",
+    message: "Hello John",
+    id: uuidv4(),
+    local: true,
+  },
+  {
+    name: "Sara",
+    message: "Hello John, i am so cool and i have a new hat",
+    id: uuidv4(),
+    local: true,
+  },
+  {
+    name: "John",
+    message: "Ohh what reallllly?? that's so cool, i have a new car and it's awesome",
+    id: uuidv4(),
+    local: false,
+  },
+
+]
+
+const roomName = rooms[7].name
+
 
 const App = () => {
   return (
@@ -75,6 +106,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home colors={colors} />} />
         <Route path="/join" element={<JoinRoomPage rooms={rooms} colors={colors} />} />
+        <Route path="/chat" element={<ChatRoomPage colors={colors} roomName={roomName} chat={chat} />} />
       </Routes>
     </BrowserRouter>
   )
