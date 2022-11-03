@@ -12,7 +12,7 @@ const ChatRoomPage = ({ colors, rooms }) => {
     return (
         <div className="flex flex-col w-screen h-screen justify-between items-center" style={{ backgroundColor: colors.white }}>
             <h1 className=" w-screen text-center font-semibold py-4 border-[#d5d5d5] border-b rounded-b-2xl shadow-lg">{currentRoom.name ? currentRoom.name : "Nameless Room"}</h1>
-            <div className="px-3 sm:px-11 sm:w-[70%] flex flex-col gap-5 overflow-y-scroll pb-3 sm:h-full sm:justify-end">
+            <div className="px-3 sm:px-11 sm:w-[70%] flex flex-col gap-5 self-end justify-self-end w-full overflow-y-scroll pb-3 h-full justify-end">
                 {currentRoom.chat.map(message => {
                     return message.local
                         ? <div className=" flex flex-col self-end w-fit p-2 rounded-lg max-w-[50%]" style={{ backgroundColor: colors.blue }} key={message.id}>

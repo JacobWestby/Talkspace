@@ -118,23 +118,13 @@ const rooms =
     },
   ];
 
-// const chat = [
-
-//   {
-//     name: "John",
-//     message: "Ohh what reallllly?? that's so cool, i have a new car and it's awesome",
-//     id: uuidv4(),
-//     local: false,
-//   },
-// ]
-
 const roomName = rooms[7].name
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home colors={colors} />} />
+        <Route path="/" element={<Home colors={colors} rooms={rooms} />} />
         <Route path="/join" element={<JoinRoomPage rooms={rooms} colors={colors} />} />
         <Route path="/chat/:chatId" element={<ChatRoomPage colors={colors} roomName={roomName} rooms={rooms} />} />
       </Routes>
