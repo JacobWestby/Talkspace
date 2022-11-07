@@ -118,7 +118,10 @@ const rooms =
     },
   ];
 
-const roomName = rooms[7].name
+// TODO: ADD ROOMS/CHATS TO MONGO DB AND GET THEM FROM THERE
+// TODO: SETUP UP LOGIN OR AUTO COOKIE AND ID FOR USER
+// TODO: ADD USERS NAME TO NEW CHAT IN CHATROOMPAGE INSTEAD OF "SARA"
+// TODO: MAKE SURE YOU CAN RELOAD PAGE WITHOUT AN ERROR
 
 const App = () => {
   return (
@@ -126,7 +129,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home colors={colors} rooms={rooms} />} />
         <Route path="/join" element={<JoinRoomPage rooms={rooms} colors={colors} />} />
-        <Route path="/chat/:chatId" element={<ChatRoomPage colors={colors} roomName={roomName} rooms={rooms} />} />
+        <Route path="/chat/:chatId" element={<ChatRoomPage colors={colors} rooms={rooms} />} />
       </Routes>
     </BrowserRouter>
   )
