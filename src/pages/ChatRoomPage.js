@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 
-const ChatRoomPage = ({ colors, rooms }) => {
+const ChatRoomPage = ({ colors, rooms, user }) => {
     const location = useLocation();
     const { from } = location.state;
 

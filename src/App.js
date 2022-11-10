@@ -120,15 +120,17 @@ const colors = {
 //     },
 //   ];
 
-// TODO: ADD ROOMS/CHATS TO MONGO DB AND GET THEM FROM THERE
-// TODO: SETUP UP LOGIN OR AUTO COOKIE AND ID FOR USER
-// TODO: ADD USERS NAME TO NEW CHAT IN CHATROOMPAGE INSTEAD OF "SARA"
-// TODO: MAKE SURE YOU CAN RELOAD PAGE WITHOUT AN ERROR
 
 const App = () => {
   const [rooms, setRooms] = useState([]);
+  const [user, setUser] = useState({ userName: "", id: "" });
 
   useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      setUser(user);
+    }
+
     const getRooms = async () => {
       const res = await axios.get('/api/rooms');
       setRooms(res.data);
@@ -136,15 +138,20 @@ const App = () => {
     getRooms();
   }, []);
 
-  console.log(rooms);
+  console.log(user);
+
+  // TODO: ADD ROOMS/CHATS TO MONGO DB AND GET THEM FROM THERE done
+  // TODO: SETUP UP LOGIN OR AUTO COOKIE AND ID FOR USER doneISH
+  // TODO: ADD USERS NAME TO NEW CHAT IN CHATROOMPAGE INSTEAD OF "SARA"
+  // TODO: MAKE SURE YOU CAN RELOAD PAGE WITHOUT AN ERROR
 
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home colors={colors} rooms={rooms} />} />
+        <Route path="/" exact element={<Home colors={colors} rooms={rooms} setUser={setUser} user={user} />} />
         <Route path="/join" element={<JoinRoomPage rooms={rooms} colors={colors} />} />
-        <Route path="/chat/:chatId" element={<ChatRoomPage colors={colors} rooms={rooms} />} />
+        <Route path="/chat/:chatId" exact element={<ChatRoomPage colors={colors} rooms={rooms} user={user} />} />
       </Routes>
     </BrowserRouter>
   )
