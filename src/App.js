@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { v4 as uuidv4 } from 'uuid';
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 // Components
 import Home from "./pages/Home";
@@ -8,7 +8,6 @@ import JoinRoomPage from './pages/JoinRoomPage';
 import ChatRoomPage from './pages/ChatRoomPage';
 
 import "./input.css";
-import axios from 'axios';
 
 const colors = {
   purple: "#9381FF",
@@ -138,10 +137,12 @@ const App = () => {
     getRooms();
   }, []);
 
-  console.log(user);
 
-  // TODO: ADD ROOMS/CHATS TO MONGO DB AND GET THEM FROM THERE done
-  // TODO: SETUP UP LOGIN OR AUTO COOKIE AND ID FOR USER doneISH
+  // SETUP UP LOGIN OR AUTO COOKIE AND ID FOR USER done
+
+  // TODO: Add username and button to change username in top right corner on all pages but chatroompage, Only change username not ID
+  // TODO: Post new rooms and chats to database
+
   // TODO: ADD USERS NAME TO NEW CHAT IN CHATROOMPAGE INSTEAD OF "SARA"
   // TODO: MAKE SURE YOU CAN RELOAD PAGE WITHOUT AN ERROR
 

@@ -7,11 +7,24 @@ import CreateUserModal from "../components/CreateUserModal";
 
 const Home = ({ colors, rooms, setUser, user }) => {
     const [inputText, setInputText] = useState("Room Name");
+    const [changeName, setChangeName] = useState(false);
+    const [showModal, setShowModal] = useState(true);
 
     return (
         <>
-            <CreateUserModal setUser={setUser} colors={colors} user={user} />
+            <CreateUserModal setUser={setUser} colors={colors} user={user} changeName={changeName} setChangeName={setChangeName} showModal={showModal} setShowModal={setShowModal} />
             <header className=" h-screen w-screen relative">
+                {
+                    user.userName
+                        ? <div className="fixed right-0 flex flex-col p-3 z-30">
+                            <h3 className=" font-semibold text-xs">Username: {user.userName}</h3>
+                            <button className=" font-thin text-xs hover:text-[#9381FF] transition-all duration-200 ease-in-out " onClick={() => {
+                                setChangeName(true)
+                                setShowModal(true)
+                            }} >Change name</button>
+                        </div>
+                        : <div></div>
+                }
                 <div className=" h-screen w-screen flex flex-col items-center bg-transparent absolute py-11">
                     <div className=" flex flex-col items-center h-[18vh] justify-between">
                         <h2 className=" font-semibold text-xl">Welcome to</h2>
