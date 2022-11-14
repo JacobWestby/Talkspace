@@ -134,13 +134,14 @@ const App = () => {
       const res = await axios.get('/api/rooms');
       setRooms(res.data);
     };
+    
     getRooms();
   }, []);
 
 
   // SETUP UP LOGIN OR AUTO COOKIE AND ID FOR USER done
 
-  // TODO: Add username and button to change username in top right corner on all pages but chatroompage, Only change username not ID
+  // Add username and button to change username in top right corner on all pages but chatroompage, Only change username not ID DONE
   // TODO: Post new rooms and chats to database
 
   // TODO: ADD USERS NAME TO NEW CHAT IN CHATROOMPAGE INSTEAD OF "SARA"
