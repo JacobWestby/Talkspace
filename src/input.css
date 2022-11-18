@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
   height: 100px;
 }
 
@@ -20,4 +20,8 @@
   background: linear-gradient(142deg, rgba(254, 246, 236, 0) 25%, rgb(151, 151, 151) 50%, rgba(254, 246, 236, 0) 75%);
   border-radius: 5px;
   height: 100px;
+}
+
+#chat {
+  overscroll-behavior-y: contain;
 }

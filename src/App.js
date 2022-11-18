@@ -16,11 +16,17 @@ const colors = {
   blue: "#A7E2E3"
 };
 
+// const rooms = [
+//   "Room 1": {
+
+//   }
+// ]
+
 // const rooms =
 //   [
 //     {
 //       name: "Room 1",
-//       chatting: Math.floor(Math.random() * 6),
+//       chatting: 0,
 //       id: uuidv4(),
 //       chat: [
 //         {
@@ -134,7 +140,7 @@ const App = () => {
       const res = await axios.get('/api/rooms');
       setRooms(res.data);
     };
-    
+
     getRooms();
   }, []);
 
@@ -142,16 +148,16 @@ const App = () => {
   // SETUP UP LOGIN OR AUTO COOKIE AND ID FOR USER done
 
   // Add username and button to change username in top right corner on all pages but chatroompage, Only change username not ID DONE
+  // TODO: ADD USERS NAME TO NEW CHAT IN CHATROOMPAGE INSTEAD OF "SARA"
   // TODO: Post new rooms and chats to database
 
-  // TODO: ADD USERS NAME TO NEW CHAT IN CHATROOMPAGE INSTEAD OF "SARA"
   // TODO: MAKE SURE YOU CAN RELOAD PAGE WITHOUT AN ERROR
 
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" exact element={<Home colors={colors} rooms={rooms} setUser={setUser} user={user} />} />
+        <Route path="/" exact element={<Home rooms={rooms} colors={colors} setUser={setUser} user={user} />} />
         <Route path="/join" element={<JoinRoomPage rooms={rooms} colors={colors} />} />
         <Route path="/chat/:chatId" exact element={<ChatRoomPage colors={colors} rooms={rooms} user={user} />} />
       </Routes>
