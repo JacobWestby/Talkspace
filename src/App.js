@@ -144,14 +144,13 @@ const App = () => {
     getRooms();
   }, []);
 
-
   // SETUP UP LOGIN OR AUTO COOKIE AND ID FOR USER done
 
   // Add username and button to change username in top right corner on all pages but chatroompage, Only change username not ID DONE
-  // TODO: ADD USERS NAME TO NEW CHAT IN CHATROOMPAGE INSTEAD OF "SARA"
+  // ADD USERS NAME TO NEW CHAT IN CHATROOMPAGE INSTEAD OF "SARA" DONE
   // TODO: Post new rooms and chats to database
 
-  // TODO: MAKE SURE YOU CAN RELOAD PAGE WITHOUT AN ERROR
+  //  MAKE SURE YOU CAN RELOAD PAGE WITHOUT AN ERROR DONEEEEEE
 
 
   return (
