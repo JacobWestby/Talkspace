@@ -1,3 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 100px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(254, 246, 236);
+  background: linear-gradient(142deg, rgba(254, 246, 236, 0) 25%, rgba(213, 213, 213, 1) 50%, rgba(254, 246, 236, 0) 75%);
+  box-shadow: inset 0 0 5px transparent;
+  border-radius: 5px;
+  height: 100px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(254, 246, 236);
+  background: linear-gradient(142deg, rgba(254, 246, 236, 0) 25%, rgb(151, 151, 151) 50%, rgba(254, 246, 236, 0) 75%);
+  border-radius: 5px;
+  height: 100px;
+}
+
+#chat {
+  overscroll-behavior-y: contain;
+}
