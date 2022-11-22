@@ -145,12 +145,33 @@ const App = () => {
   }, []);
 
   // SETUP UP LOGIN OR AUTO COOKIE AND ID FOR USER done
-
   // Add username and button to change username in top right corner on all pages but chatroompage, Only change username not ID DONE
   // ADD USERS NAME TO NEW CHAT IN CHATROOMPAGE INSTEAD OF "SARA" DONE
-  // TODO: Post new rooms and chats to database
+  // Post new rooms and chats to database DONE
+  // MAKE SURE YOU CAN RELOAD PAGE WITHOUT AN ERROR DONEEEEEE
 
-  //  MAKE SURE YOU CAN RELOAD PAGE WITHOUT AN ERROR DONEEEEEE
+  // TODO: Update chatting number depending on amount of people in room
+  // ? If a user clicks a room add one to chatting? How to remove one from chatting? 
+  // ? Check number of people in a room using currentRoom?
+  // ? Start in Joinroom pass to Chatroom 
+
+  // TODO: Remove userID when page is closed (Clear local storage)?? Maybe not
+
+  // TODO: Delete rooms..??
+  // ? Use userID to check if user is creator of room?
+  // ? What if user lost their ID?
+  // ? Rooms delete themselfs after set amount of time?
+
+  // TODO: Redsign phone-svg to remove image circles
+
+  // TODO: Add Goback btn to JoinRoomPage and ChatRoomPage
+
+  // TODO: Animations on home/JoinRoomPage/ChatRoomPage
+
+  // TODO: Message send on Enter
+  // ? Needs to be a form to send on enter
+
+  // TODO: Character limit on Username and Roomname
 
 
   return (

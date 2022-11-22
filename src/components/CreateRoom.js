@@ -1,22 +1,34 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { v4 as uuidv4 } from 'uuid';
+import axios from "axios";
 
 
-
-const CreateRoom = ({ inputText, colors, setInputText, rooms }) => {
+const CreateRoom = ({ inputText, colors, setInputText }) => {
     const [showCreate, setShowCreate] = useState(false);
     let navigate = useNavigate();
 
-    const newRoom = () => {
-        rooms.push({
-            name: inputText,
-            chatting: 0,
-            id: uuidv4(),
-            chat: []
-        });
-        const newRoomLink = rooms.find(room => room.name === inputText);
-        navigate(`/chat/${newRoomLink.id} `, { state: { from: newRoomLink.id } });
+    const setRoom = (room) => {
+        localStorage.setItem("room", room)
+    };
+
+    const newRoom = async () => {
+        let newRoom
+
+        try {
+            const response = await axios.post(`/api/create`, {
+                name: inputText,
+            }, {});
+
+            newRoom = response.data;
+        } catch (err) {
+            console.log(err);
+        }
+
+        setRoom(newRoom._id)
+
+        if (newRoom) {
+            navigate(`/chat/${newRoom._id} `);
+        }
     };
 
     return (
