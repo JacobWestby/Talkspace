@@ -9,13 +9,6 @@ import ChatRoomPage from './pages/ChatRoomPage';
 
 import "./input.css";
 
-const colors = {
-  purple: "#9381FF",
-  black: "#363946",
-  white: "#FEF6EC",
-  blue: "#A7E2E3"
-};
-
 // const rooms = [
 //   "Room 1": {
 
@@ -129,6 +122,12 @@ const colors = {
 const App = () => {
   const [rooms, setRooms] = useState([]);
   const [user, setUser] = useState({ userName: "", id: "" });
+  const [colors, setColors] = useState({
+    purple: "#9381FF",
+    black: "#363946",
+    white: "#FEF6EC",
+    blue: "#A7E2E3"
+  });
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -164,11 +163,11 @@ const App = () => {
 
   // TODO: Redsign phone-svg to remove image circles
 
-  // TODO: Add Goback btn to JoinRoomPage and ChatRoomPage
+  // * Add Goback btn to JoinRoomPage and ChatRoomPage DONE
 
   // TODO: Animations on home/JoinRoomPage/ChatRoomPage
 
-  // TODO: Message send on Enter
+  // * Message send on Enter DONE
   // ? Needs to be a form to send on enter
 
   // TODO: Character limit on Username and Roomname

@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import axios from "axios";
 
-const ChatRoomPage = ({ colors, rooms, user }) => {
-    // const location = useLocation();
-    // const { from } = location.state;
+import BackArrow from "../components/BackArrow";
+
+const ChatRoomPage = ({ colors, user }) => {
     const [currentRoom, setCurrentRoom] = useState({});
     const [newChat, setNewChat] = useState("");
 
@@ -32,9 +32,10 @@ const ChatRoomPage = ({ colors, rooms, user }) => {
         element.scrollTop = element.scrollTop * 10;
     };
 
-    // * adds new chat to chat and sends to DB
+    // * adds new chat to chat array and sends to DB
 
-    const addNewChat = async () => {
+    const addNewChat = async (e) => {
+        e.preventDefault();
         const response = await axios.post(`/api/rooms/${currentRoom._id}`, {
             name: user.userName,
             message: newChat,
@@ -56,10 +57,10 @@ const ChatRoomPage = ({ colors, rooms, user }) => {
 
     return (
         <>
-        {/* Checks is currentRoom is defined, if true displays chat */}
+            <BackArrow path={"/join"} />
+            {/* Checks is currentRoom is defined, if true displays chat */}
             {currentRoom._id ?
-                <div div className="flex flex-col w-screen h-screen justify-between items-center" style={{ backgroundColor: colors.white }
-                }>
+                <div className="flex flex-col w-screen h-screen justify-between items-center" style={{ backgroundColor: colors.white }}>
                     <h1 className=" w-screen text-center font-semibold py-4 border-[#d5d5d5] border-b rounded-b-2xl shadow-lg">{currentRoom.name ? currentRoom.name : "Nameless Room"}</h1>
                     <div className="px-3 sm:px-11 sm:w-[70%] flex flex-col gap-5 w-full overflow-y-scroll snap-y snap-proximity pb-3 h-full" id="chat">
                         {currentRoom.chat.map(message => {
@@ -76,17 +77,19 @@ const ChatRoomPage = ({ colors, rooms, user }) => {
                         }
                         )}
                     </div>
-                    <div className="flex justify-between sm:justify-evenly h-[20%] sm:w-[80%] w-screen sm:h-[7%] sm:px-5 px-3 ">
+                    <form action="submit" className="flex justify-between sm:justify-evenly h-[20%] sm:w-[80%] w-screen sm:h-[7%] sm:px-5 px-3 ">
                         <input type="text" className=" w-[80%] h-fit min-h-[90%] whitespace-normal" value={newChat} onChange={(e) => setNewChat(e.target.value)} />
-                        <button type="submit" onClick={() => {
+                        <button type="submit" onClick={(e) => {
                             if (newChat.length > 0) {
-                                addNewChat()
+                                addNewChat(e)
                             }
                         }} className=" mr-3">Send</button>
-                    </div>
-                </div > :
-
-                <div></div>}
+                    </form>
+                </div>
+                : <div>
+                    No new Chats
+                </div>
+            }
 
         </>
     )
