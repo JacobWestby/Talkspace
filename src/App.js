@@ -170,7 +170,7 @@ const App = () => {
   // * Message send on Enter DONE
   // ? Needs to be a form to send on enter
 
-  // TODO: Character limit on Username and Roomname
+  // * Character limit on Username and Roomname DONE
 
 
   return (

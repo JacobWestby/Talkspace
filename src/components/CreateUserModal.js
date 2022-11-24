@@ -4,12 +4,14 @@ import { useState } from 'react';
 const CreateUserModal = ({ colors, setUser, user, changeName, setChangeName, showModal, setShowModal }) => {
   const [userName, setUserName] = useState("");
 
+  // * Creates a new user and saves it to local storage
   const createUser = () => {
     const id = uuidv4();
     localStorage.setItem("user", JSON.stringify({ userName, id }));
     setUser({ userName, id });
   }
 
+  // * Changes the name of the user and saves it to local storage
   const updateUser = () => {
     let id = JSON.parse(localStorage.getItem('user'));
     id = id.id;
