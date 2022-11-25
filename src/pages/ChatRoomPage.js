@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import axios from "axios";
+import { useBeforeunload } from 'react-beforeunload';
+
 
 import BackArrow from "../components/BackArrow";
 
 const ChatRoomPage = ({ colors, user }) => {
     const [currentRoom, setCurrentRoom] = useState({});
     const [newChat, setNewChat] = useState("");
+    const [updateChatting, setUpdateChatting] = useState(false);
+
 
 
     // * Gets current room from DB via ID saved to localstorage
@@ -25,6 +29,20 @@ const ChatRoomPage = ({ colors, user }) => {
         }
     }, []);
 
+    const updateChat = async (id) => {
+        try {
+            const res = await axios.post(`/api/updatechat/${id}`, { chatting: updateChatting });
+            console.log(res.data);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    useBeforeunload((e) => {
+        e.preventDefault()
+        updateChat(currentRoom._id)
+    });
+
     // * Updates scroll location to bottom of chat
 
     const updateScroll = () => {
@@ -41,6 +59,7 @@ const ChatRoomPage = ({ colors, user }) => {
             message: newChat,
             chatID: user.id,
             id: uuidv4(),
+            time: new Date().toLocaleTimeString()
         }, {});
 
         const chat = response.data;
@@ -57,7 +76,7 @@ const ChatRoomPage = ({ colors, user }) => {
 
     return (
         <>
-            <BackArrow path={"/join"} />
+            <BackArrow path={"/join"} onClick={() => updateChat(currentRoom._id)} />
             {/* Checks is currentRoom is defined, if true displays chat */}
             {currentRoom._id ?
                 <div className="flex flex-col w-screen h-screen justify-between items-center" style={{ backgroundColor: colors.white }}>
@@ -86,8 +105,9 @@ const ChatRoomPage = ({ colors, user }) => {
                         }} className=" mr-3">Send</button>
                     </form>
                 </div>
-                : <div>
-                    No new Chats
+                : <div className="flex flex-col w-screen h-screen justify-between items-center" style={{ backgroundColor: colors.white }}>
+                    <h1 className=" w-screen text-center font-semibold py-4 border-[#d5d5d5] border-b rounded-b-2xl shadow-lg">{currentRoom.name ? currentRoom.name : "Nameless Room"}</h1>
+                    <div>L</div>
                 </div>
             }
 
