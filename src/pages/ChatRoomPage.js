@@ -1,17 +1,12 @@
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import axios from "axios";
-import { useBeforeunload } from 'react-beforeunload';
-
 
 import BackArrow from "../components/BackArrow";
 
 const ChatRoomPage = ({ colors, user }) => {
     const [currentRoom, setCurrentRoom] = useState({});
     const [newChat, setNewChat] = useState("");
-    const [updateChatting, setUpdateChatting] = useState(false);
-
-
 
     // * Gets current room from DB via ID saved to localstorage
     useEffect(() => {
@@ -29,20 +24,6 @@ const ChatRoomPage = ({ colors, user }) => {
         }
     }, []);
 
-    const updateChat = async (id) => {
-        try {
-            const res = await axios.post(`/api/updatechat/${id}`, { chatting: updateChatting });
-            console.log(res.data);
-        } catch (err) {
-            console.log(err);
-        }
-    };
-
-    useBeforeunload((e) => {
-        e.preventDefault()
-        updateChat(currentRoom._id)
-    });
-
     // * Updates scroll location to bottom of chat
 
     const updateScroll = () => {
@@ -54,16 +35,17 @@ const ChatRoomPage = ({ colors, user }) => {
 
     const addNewChat = async (e) => {
         e.preventDefault();
+        let time = new Date().getTime();
+
         const response = await axios.post(`/api/rooms/${currentRoom._id}`, {
             name: user.userName,
             message: newChat,
             chatID: user.id,
             id: uuidv4(),
-            time: new Date().toLocaleTimeString()
+            time: time
         }, {});
 
         const chat = response.data;
-
         setCurrentRoom({
             ...currentRoom,
             chat: [...currentRoom.chat, chat]
@@ -76,7 +58,7 @@ const ChatRoomPage = ({ colors, user }) => {
 
     return (
         <>
-            <BackArrow path={"/join"} onClick={() => updateChat(currentRoom._id)} />
+            <BackArrow path={"/join"} />
             {/* Checks is currentRoom is defined, if true displays chat */}
             {currentRoom._id ?
                 <div className="flex flex-col w-screen h-screen justify-between items-center" style={{ backgroundColor: colors.white }}>

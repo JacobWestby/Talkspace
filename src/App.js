@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 
 // Components
 import Home from "./pages/Home";
@@ -9,119 +8,10 @@ import ChatRoomPage from './pages/ChatRoomPage';
 
 import "./input.css";
 
-// const rooms = [
-//   "Room 1": {
-
-//   }
-// ]
-
-// const rooms =
-//   [
-//     {
-//       name: "Room 1",
-//       chatting: 0,
-//       id: uuidv4(),
-//       chat: [
-//         {
-//           name: "John",
-//           message: "Hello world",
-//           id: uuidv4(),
-//           local: false,
-//         },
-//         {
-//           name: "Sara",
-//           message: "Hello John",
-//           id: uuidv4(),
-//           local: true,
-//         },
-//         {
-//           name: "Sara",
-//           message: "Hello John, i am so cool and i have a new hat",
-//           id: uuidv4(),
-//           local: true,
-//         },
-//       ]
-//     },
-//     {
-//       name: "Room 2",
-//       chatting: Math.floor(Math.random() * 6),
-//       id: uuidv4(),
-//       chat: [
-//         {
-//           name: "John",
-//           message: "New Room who dis",
-//           id: uuidv4(),
-//           local: true,
-//         },
-//         {
-//           name: "John",
-//           message: "Wow that's soo cool dsadsadadsadsadsadsdsadsadasdsadas",
-//           id: uuidv4(),
-//           local: false,
-//         },
-//         {
-//           name: "John",
-//           message: "Can u feel it?!",
-//           id: uuidv4(),
-//           local: true,
-//         },
-
-//       ],
-//     },
-//     {
-//       name: "News room",
-//       chatting: Math.floor(Math.random() * 6),
-//       id: uuidv4(),
-//       chat: [],
-//     },
-//     {
-//       name: "Cool guys room",
-//       chatting: Math.floor(Math.random() * 6),
-//       id: uuidv4(),
-//       chat: [],
-//     },
-//     {
-//       name: "Room for chicks",
-//       chatting: Math.floor(Math.random() * 6),
-//       id: uuidv4(),
-//       chat: [],
-//     },
-//     {
-//       name: "Room for dudes",
-//       chatting: Math.floor(Math.random() * 6),
-//       id: uuidv4(),
-//       chat: [],
-//     },
-//     {
-//       name: "Aliens only",
-//       chatting: Math.floor(Math.random() * 6),
-//       id: uuidv4(),
-//       chat: [],
-//     },
-//     {
-//       name: "Are cows real?",
-//       chatting: Math.floor(Math.random() * 6),
-//       id: uuidv4(),
-//       chat: [],
-//     },
-//     {
-//       name: "Hello world",
-//       chatting: Math.floor(Math.random() * 6),
-//       id: uuidv4(),
-//       chat: [],
-//     },
-//     {
-//       name: "Goodmorning",
-//       chatting: Math.floor(Math.random() * 6),
-//       id: uuidv4(),
-//       chat: [],
-//     },
-//   ];
-
-
 const App = () => {
   const [rooms, setRooms] = useState([]);
   const [user, setUser] = useState({ userName: "", id: "" });
+  // eslint-disable-next-line
   const [colors, setColors] = useState({
     purple: "#9381FF",
     black: "#363946",
@@ -134,20 +24,9 @@ const App = () => {
     if (user) {
       setUser(user);
     }
-
-    const getRooms = async () => {
-      const res = await axios.get('/api/rooms');
-      setRooms(res.data);
-    };
-
-    getRooms();
   }, []);
 
-  // TODO: Update chatting number depending on amount of people in room
-  // ? If a user clicks a room add one to chatting? How to remove one from chatting? 
-  // ? Check number of people in a room using currentRoom?
-  // ? Start in Joinroom pass to Chatroom 
-  // ? Room is active: Display time since last message in chatroom
+  // * Room shows time passed since last chat
 
   // TODO: Remove userID when page is closed (Clear local storage)?? Maybe not
 
@@ -172,7 +51,7 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" exact element={<Home rooms={rooms} colors={colors} setUser={setUser} user={user} />} />
-        <Route path="/join" element={<JoinRoomPage rooms={rooms} colors={colors} />} />
+        <Route path="/join" element={<JoinRoomPage setRooms={setRooms} rooms={rooms} colors={colors} />} />
         <Route path="/chat/:chatId" exact element={<ChatRoomPage colors={colors} rooms={rooms} user={user} />} />
       </Routes>
     </BrowserRouter>
