@@ -8,7 +8,6 @@ const ChatRoomPage = ({ colors, user }) => {
     const [currentRoom, setCurrentRoom] = useState({});
     const [newChat, setNewChat] = useState("");
 
-
     // * Gets current room from DB via ID saved to localstorage
     useEffect(() => {
         try {
@@ -36,15 +35,17 @@ const ChatRoomPage = ({ colors, user }) => {
 
     const addNewChat = async (e) => {
         e.preventDefault();
+        let time = new Date().getTime();
+
         const response = await axios.post(`/api/rooms/${currentRoom._id}`, {
             name: user.userName,
             message: newChat,
             chatID: user.id,
             id: uuidv4(),
+            time: time
         }, {});
 
         const chat = response.data;
-
         setCurrentRoom({
             ...currentRoom,
             chat: [...currentRoom.chat, chat]
@@ -86,8 +87,9 @@ const ChatRoomPage = ({ colors, user }) => {
                         }} className=" mr-3">Send</button>
                     </form>
                 </div>
-                : <div>
-                    No new Chats
+                : <div className="flex flex-col w-screen h-screen justify-between items-center" style={{ backgroundColor: colors.white }}>
+                    <h1 className=" w-screen text-center font-semibold py-4 border-[#d5d5d5] border-b rounded-b-2xl shadow-lg">{currentRoom.name ? currentRoom.name : "Nameless Room"}</h1>
+                    <div>L</div>
                 </div>
             }
 

@@ -1,11 +1,33 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom"
 import BackArrow from "../components/BackArrow";
+import axios from "axios";
 
-const JoinRoomPage = ({ rooms, colors }) => {
+const JoinRoomPage = ({ setRooms, rooms, colors }) => {
 
-    const setRoom = (room) => {
-        localStorage.setItem("room", room)
+    GetRoomsFromDB(setRooms, rooms);
+
+    const setRoomToLocalStorage = (room) => {
+        localStorage.setItem("room", room);
     };
+
+    const getElapsedTime = (room) => {
+        const currentTime = new Date().getTime();
+        const chatTime = room.chat.sort((a, b) => b.time - a.time)[0].time;
+
+        let displayTime = Math.floor((currentTime - chatTime) / 1000);
+
+        if (displayTime < 60) {
+            return 'Just now';
+        } else if (displayTime >= 60 && displayTime < 3600) {
+            return `${Math.floor(displayTime / 60)} minute(s) ago`;
+        } else if (displayTime >= 3600 && displayTime < 86400) {
+            return `${Math.floor(displayTime / 3600)} hour(s) ago`;
+        } else if (displayTime >= 86400 && displayTime < 604800) {
+            return `${Math.floor(displayTime / 86400)} day(s) ago`;
+        }
+    };
+
 
     return (
         <>
@@ -15,15 +37,30 @@ const JoinRoomPage = ({ rooms, colors }) => {
                 <div className="flex flex-col items-center h-[80%] gap-8 w-screen sm:w-[70%] overflow-y-scroll scroll-smooth rounded-t-2xl shadow-xl" style={{ backgroundColor: colors.white }}>
                     <h2 className=" w-full text-center font-semibold border-b border-[#5d5d5d] py-4 sticky top-0 sm:text-xl" style={{ backgroundColor: colors.white }}>Active Rooms {rooms.length}</h2>
                     {rooms.map(room => (
-                        <Link to={`/chat/${room._id}`} onClick={() => setRoom(room._id)} className="w-full flex justify-evenly border-b border-t border-[#d5d5d5] py-4 hover:bg-[#A7E2E3] transition-all duration-150 ease-in-out" key={room._id}>
+                        <Link to={`/chat/${room._id}`} onClick={() => setRoomToLocalStorage(room._id)} className="w-full flex justify-evenly border-b border-t border-[#d5d5d5] py-4 hover:bg-[#A7E2E3] transition-all duration-150 ease-in-out" key={room._id}>
                             <h3 className=" w-[50%] ">{room.name}</h3>
-                            <h3 className=" w-[30%] "> Chatting: {room.chatting}</h3>
+                            <h3 className=" w-[30%] "> Last Chat: {getElapsedTime(room)} </h3>
                         </Link>
                     ))}
                 </div>
             </div >
         </>
     )
+};
+
+const GetRoomsFromDB = (setRooms) => {
+    useEffect(() => {
+        const getRooms = async () => {
+            try {
+                const res = await axios.get('/api/rooms');
+                setRooms(res.data);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+
+        getRooms();
+    }, [setRooms]);
 }
 
 export default JoinRoomPage
