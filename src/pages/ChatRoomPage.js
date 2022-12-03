@@ -8,58 +8,12 @@ const ChatRoomPage = ({ colors, user }) => {
     const [currentRoom, setCurrentRoom] = useState({});
     const [newChat, setNewChat] = useState("");
 
-    // * Gets current room from DB via ID saved to localstorage
-    useEffect(() => {
-        try {
-            const getRoom = async () => {
-                const res = await axios.get(`/api/rooms/${localStorage.getItem("room")}`);
-                const dbRoom = res.data;
-
-                setCurrentRoom(dbRoom);
-            };
-            getRoom();
-
-        } catch (err) {
-            console.log(err);
-        }
-    }, []);
-
-    // * Updates scroll location to bottom of chat
-
-    const updateScroll = () => {
-        let element = document.getElementById("chat");
-        element.scrollTop = element.scrollTop * 10;
-    };
-
-    // * adds new chat to chat array and sends to DB
-
-    const addNewChat = async (e) => {
-        e.preventDefault();
-        let time = new Date().getTime();
-
-        const response = await axios.post(`/api/rooms/${currentRoom._id}`, {
-            name: user.userName,
-            message: newChat,
-            chatID: user.id,
-            id: uuidv4(),
-            time: time
-        }, {});
-
-        const chat = response.data;
-        setCurrentRoom({
-            ...currentRoom,
-            chat: [...currentRoom.chat, chat]
-        });
-
-        setNewChat("");
-        updateScroll();
-        updateScroll();
-    };
+    GetCurrentRoom(setCurrentRoom);
 
     return (
         <>
             <BackArrow path={"/join"} />
-            {/* Checks is currentRoom is defined, if true displays chat */}
+            {/* Checks if currentRoom is defined, if true displays chat */}
             {currentRoom._id ?
                 <div className="flex flex-col w-screen h-screen justify-between items-center" style={{ backgroundColor: colors.white }}>
                     <h1 className=" w-screen text-center font-semibold py-4 border-[#d5d5d5] border-b rounded-b-2xl shadow-lg">{currentRoom.name ? currentRoom.name : "Nameless Room"}</h1>
@@ -81,20 +35,69 @@ const ChatRoomPage = ({ colors, user }) => {
                     <form action="submit" className="flex justify-between sm:justify-evenly h-[20%] sm:w-[80%] w-screen sm:h-[7%] sm:px-5 px-3 ">
                         <input type="text" className=" w-[80%] h-fit min-h-[90%] whitespace-normal" value={newChat} onChange={(e) => setNewChat(e.target.value)} />
                         <button type="submit" onClick={(e) => {
+                            e.preventDefault()
                             if (newChat.length > 0) {
-                                addNewChat(e)
+                                AddNewChatToDB(user, currentRoom, newChat, setNewChat, setCurrentRoom)
+                                UpdateScroll()
                             }
                         }} className=" mr-3">Send</button>
                     </form>
                 </div>
                 : <div className="flex flex-col w-screen h-screen justify-between items-center" style={{ backgroundColor: colors.white }}>
                     <h1 className=" w-screen text-center font-semibold py-4 border-[#d5d5d5] border-b rounded-b-2xl shadow-lg">{currentRoom.name ? currentRoom.name : "Nameless Room"}</h1>
-                    <div>L</div>
+                    <div></div>
                 </div>
             }
-
         </>
     )
-}
+};
+
+//  Gets current room from DB via ID saved to localstorage to prevet crash on refresh
+const GetCurrentRoom = (setCurrentRoom) => {
+    useEffect(() => {
+        try {
+            const getRoom = async () => {
+                const res = await axios.get(`/api/rooms/${localStorage.getItem("room")}`);
+                const dbRoom = res.data;
+
+                setCurrentRoom(dbRoom);
+            };
+            getRoom();
+
+        } catch (err) {
+            console.log(err);
+        }
+        // eslint-disable-next-line
+    }, []);
+};
+
+//  Adds new chat to DB and updates state to show new chat on screen
+const AddNewChatToDB = async (user, currentRoom, newChat, setNewChat, setCurrentRoom) => {
+    const response = await axios.post(`/api/rooms/${currentRoom._id}`, {
+        name: user.userName,
+        message: newChat,
+        chatID: user.id,
+        id: uuidv4(),
+        time: new Date().getTime()
+    }, {});
+
+    // Updates room state to show same chat as DB
+    const chat = response.data;
+    setCurrentRoom({
+        ...currentRoom,
+        chat: [...currentRoom.chat, chat]
+    });
+
+    // Resets input field
+    setNewChat("");
+};
+
+//  Updates scroll location to bottom of chat
+const UpdateScroll = () => {
+    setTimeout(() => {
+        let element = document.getElementById("chat");
+        element.scrollTop = element.scrollTop * 10;
+    }, 500);
+};
 
 export default ChatRoomPage
