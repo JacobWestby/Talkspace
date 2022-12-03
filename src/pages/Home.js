@@ -15,6 +15,7 @@ const Home = ({ colors, rooms, setUser, user }) => {
             <CreateUserModal setUser={setUser} colors={colors} user={user} changeName={changeName} setChangeName={setChangeName} showModal={showModal} setShowModal={setShowModal} />
             <header className=" h-screen w-screen relative">
                 {
+                    // Displays the username and a button to change it in the top right corner IF username is ture
                     user.userName
                         ? <div className="fixed right-0 flex flex-col p-3 z-30">
                             <h3 className=" font-semibold text-xs">Username: {user.userName}</h3>

@@ -8,6 +8,24 @@ import ChatRoomPage from './pages/ChatRoomPage';
 
 import "./input.css";
 
+
+// TODO: Redsign phone-svg to remove image circles
+
+// TODO: Animations on home/JoinRoomPage/ChatRoomPage
+
+// * Refactor code to use custom hooks and functions should just do one thing
+
+// *Fix scroll issue in chatroom. Scroll needs to be locked to bottom of screen Fixed for now
+
+// * Room shows time passed since last chat
+
+// * Add Goback btn to JoinRoomPage and ChatRoomPage DONE
+
+// * Message send on Enter DONE
+
+// * Character limit on Username and Roomname DONE
+
+
 const App = () => {
   const [rooms, setRooms] = useState([]);
   const [user, setUser] = useState({ userName: "", id: "" });
@@ -19,33 +37,7 @@ const App = () => {
     blue: "#A7E2E3"
   });
 
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    if (user) {
-      setUser(user);
-    }
-  }, []);
-
-  // * Room shows time passed since last chat
-
-  // TODO: Remove userID when page is closed (Clear local storage)?? Maybe not
-
-  // TODO: Delete rooms..??
-  // ? Use userID to check if user is creator of room?
-  // ? What if user lost their ID?
-  // ? Rooms delete themselfs after set amount of time?
-
-  // TODO: Redsign phone-svg to remove image circles
-
-  // TODO: Animations on home/JoinRoomPage/ChatRoomPage
-
-  // * Add Goback btn to JoinRoomPage and ChatRoomPage DONE
-
-  // * Message send on Enter DONE
-  // ? Needs to be a form to send on enter
-
-  // * Character limit on Username and Roomname DONE
-
+  GetUserFromLocalStorage(setUser);
 
   return (
     <BrowserRouter>
@@ -56,7 +48,17 @@ const App = () => {
       </Routes>
     </BrowserRouter>
   )
+};
 
-}
+// Checks localstorage for a user and sets the user state if true
+const GetUserFromLocalStorage = (setUser) => {
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      setUser(user);
+    }
+    // eslint-disable-next-line
+  }, []);
+};
 
 export default App
