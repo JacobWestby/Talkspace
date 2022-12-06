@@ -9,6 +9,7 @@ import ChatRoomPage from './pages/ChatRoomPage';
 import "./input.css";
 
 // TODO: Animations on home/JoinRoomPage/ChatRoomPage
+// ? Phone image flash random room names, but stop when user clicks create room and then input displays instead?
 
 // TODO: Cancel btn for changing username
 
