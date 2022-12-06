@@ -8,10 +8,14 @@ import ChatRoomPage from './pages/ChatRoomPage';
 
 import "./input.css";
 
-
-// TODO: Redsign phone-svg to remove image circles
-
 // TODO: Animations on home/JoinRoomPage/ChatRoomPage
+
+// TODO: Cancel btn for changing username
+
+// ! How are users gonna see other users new chats when chat states updates locally?
+// ! Need to get new chats from the DB when DB is changed
+
+// * Redsign phone-svg to remove image circles
 
 // * Refactor code to use custom hooks and functions should just do one thing
 
