@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import axios from "axios";
 
+// Components
 import BackArrow from "../components/BackArrow";
 
 const ChatRoomPage = ({ colors, user }) => {

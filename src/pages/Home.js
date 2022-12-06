@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+// Components
 import Phone from "../components/Phone";
 import Background from "../components/Background";
 import CreateRoom from "../components/CreateRoom";
@@ -33,7 +34,7 @@ const Home = ({ colors, rooms, setUser, user }) => {
                     </div>
 
                     <div className="w-screen h-full flex justify-evenly items-center">
-                        <Phone inputText={inputText} />
+                        <Phone />
                         <CreateRoom rooms={rooms} inputText={inputText} colors={colors} setInputText={setInputText} />
                     </div>
                 </div>

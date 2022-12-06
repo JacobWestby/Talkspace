@@ -1,7 +1,9 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom"
-import BackArrow from "../components/BackArrow";
 import axios from "axios";
+
+// Components
+import BackArrow from "../components/BackArrow";
 
 const JoinRoomPage = ({ setRooms, rooms, colors }) => {
 
