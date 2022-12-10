@@ -5,7 +5,8 @@ import axios from "axios";
 // Components
 import BackArrow from "../components/BackArrow";
 
-const ChatRoomPage = ({ colors, user }) => {
+
+const ChatRoomPage = ({ colors, user, socket }) => {
     const [currentRoom, setCurrentRoom] = useState({});
     const [newChat, setNewChat] = useState("");
 

@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { gsap } from "gsap";
 
 // Components
 import Phone from "../components/Phone";
 import Background from "../components/Background";
-import CreateRoom from "../components/CreateRoom";
+import CreateOrJoinRoom from "../components/CreateOrJoinRoom";
 import CreateUserModal from "../components/CreateUserModal";
+import { useEffect } from "react";
 
 const Home = ({ colors, rooms, setUser, user }) => {
     const [inputText, setInputText] = useState("Room Name");
@@ -34,14 +36,21 @@ const Home = ({ colors, rooms, setUser, user }) => {
                     </div>
 
                     <div className="w-screen h-full flex justify-evenly items-center">
-                        <Phone />
-                        <CreateRoom rooms={rooms} inputText={inputText} colors={colors} setInputText={setInputText} />
+                        <Phone AnimateOnPageLoad={AnimateOnPageLoad} />
+                        <CreateOrJoinRoom rooms={rooms} inputText={inputText} colors={colors} setInputText={setInputText} />
                     </div>
                 </div>
                 <Background />
             </header>
         </>
     )
-}
+};
+
+const AnimateOnPageLoad = (target) => {
+    useEffect(() => {
+        gsap.fromTo(target, { y: 150, opacity: 0 }, { duration: 1, y: 0, opacity: 1, ease: "circ" });
+        // eslint-disable-next-line
+    }, [])
+};
 
 export default Home

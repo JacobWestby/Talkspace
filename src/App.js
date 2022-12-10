@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { useState, useEffect } from 'react';
+import { Socket } from 'socket.io-client';
 
 // Components
 import Home from "./pages/Home";
@@ -8,13 +9,18 @@ import ChatRoomPage from './pages/ChatRoomPage';
 
 import "./input.css";
 
-// TODO: Animations on home/JoinRoomPage/ChatRoomPage
-// ? Phone image flash random room names, but stop when user clicks create room and then input displays instead?
+const socket = new Socket("http://localhost:8000");
 
-// TODO: Cancel btn for changing username
+// ? Phone image flash random room names, but stop when user clicks create room and then input displays instead?
 
 // ! How are users gonna see other users new chats when chat states updates locally?
 // ! Need to get new chats from the DB when DB is changed
+
+// * Btns Hover DONE
+
+// * Animations on home/JoinRoomPage/ChatRoomPage
+
+// * Cancel btn for changing username
 
 // * Redsign phone-svg to remove image circles
 
@@ -49,7 +55,7 @@ const App = () => {
       <Routes>
         <Route path="/" exact element={<Home rooms={rooms} colors={colors} setUser={setUser} user={user} />} />
         <Route path="/join" element={<JoinRoomPage setRooms={setRooms} rooms={rooms} colors={colors} />} />
-        <Route path="/chat/:chatId" exact element={<ChatRoomPage colors={colors} rooms={rooms} user={user} />} />
+        <Route path="/chat/:chatId" exact element={<ChatRoomPage colors={colors} user={user} socket={socket} />} />
       </Routes>
     </BrowserRouter>
   )
