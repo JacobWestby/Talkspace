@@ -8,7 +8,7 @@ User will be able to:
 * Chat with anyone in the room
 * ...
 
-Build With:
+Built With:
 * React
 * Express
 * MongoDB
