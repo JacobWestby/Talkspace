@@ -24,6 +24,7 @@ const CreateUserModal = ({ colors, setUser, user, changeName, setChangeName, sho
               }} >Start chating</button>
               : <button className=" py-3 px-5 rounded-2xl shadow-xl font-semibold border border-red-300 hover:cursor-default" >Name Too Short!</button>
           }
+          <p onClick={() => setShowModal(false)} className=" underline cursor-pointer hover:text-[#A7E2E3] transition-all ease-in-out duration-150">Cancel</p>
         </div>
       </div>
     )
@@ -48,6 +49,7 @@ const CreateUserModal = ({ colors, setUser, user, changeName, setChangeName, sho
               }} >Change Name</button>
               : <button className=" py-3 px-5 rounded-2xl shadow-xl font-semibold border border-red-300 hover:cursor-default" >Too Short or the same</button>
           }
+          <p onClick={() => setShowModal(false)} className=" underline cursor-pointer hover:text-[#A7E2E3] transition-all ease-in-out duration-150">Cancel</p>
         </div>
       </div>
     )

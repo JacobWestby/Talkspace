@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 
-const Phone = () => {
+const Phone = ({ AnimateOnPageLoad }) => {
     const [output, setOutput] = useState("");
     const styleRef = useRef(null);
 
@@ -16,13 +16,17 @@ const Phone = () => {
     ];
 
     const displayName = () => {
-        const randomRoom = roomNames[Math.floor(Math.random() * roomNames.length)];
-        setOutput(randomRoom);
-        setTimeout(displayName, 4000);
-        styleRef.current.animate({
-            opacity: [0, 1, 0],
-        }, 2500);
+        if (styleRef.current) {
+            const randomRoom = roomNames[Math.floor(Math.random() * roomNames.length)];
+            setOutput(randomRoom);
+            setTimeout(displayName, 4000);
+            styleRef.current.animate({
+                opacity: [0, 1, 0],
+            }, 2500);
+        }
     };
+
+    AnimateOnPageLoad(".phone");
 
     useEffect(() => {
         displayName();
@@ -30,7 +34,7 @@ const Phone = () => {
     }, []);
 
     return (
-        <div className="h-[60%] rounded-2xl absolute sm:relative sm:h-[80%] z-10 bg-[#363946] sm:bg-transparent ">
+        <div className="h-[60%] rounded-2xl absolute sm:relative sm:h-[80%] z-10 bg-[#363946] sm:bg-transparent phone">
 
             <svg className=" opacity-50 sm:opacity-100" width="100%" height="100%" viewBox="0 0 401 635" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
@@ -93,7 +97,6 @@ const Phone = () => {
             </svg>
 
         </div >
-
     )
 }
 

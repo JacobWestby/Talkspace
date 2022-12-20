@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { useState, useEffect } from 'react';
+import io from 'socket.io-client';
 
 // Components
 import Home from "./pages/Home";
@@ -8,13 +9,24 @@ import ChatRoomPage from './pages/ChatRoomPage';
 
 import "./input.css";
 
-// TODO: Animations on home/JoinRoomPage/ChatRoomPage
+const socket = io("http://localhost:8000");
+
 // ? Phone image flash random room names, but stop when user clicks create room and then input displays instead?
 
-// TODO: Cancel btn for changing username
+// TODO: Favicon
+// TODO: Font?
+// TODO: Meta tags
+// TODO: Get ready for deployment, what do I need to do?
 
-// ! How are users gonna see other users new chats when chat states updates locally?
-// ! Need to get new chats from the DB when DB is changed
+// * Fix scroll to bottom on new message
+
+// * Fix so that changestreams only sends one update from backend and shows external messages
+
+// * Btns Hover DONE
+
+// * Animations on home/JoinRoomPage/ChatRoomPage
+
+// * Cancel btn for changing username
 
 // * Redsign phone-svg to remove image circles
 
@@ -49,7 +61,7 @@ const App = () => {
       <Routes>
         <Route path="/" exact element={<Home rooms={rooms} colors={colors} setUser={setUser} user={user} />} />
         <Route path="/join" element={<JoinRoomPage setRooms={setRooms} rooms={rooms} colors={colors} />} />
-        <Route path="/chat/:chatId" exact element={<ChatRoomPage colors={colors} rooms={rooms} user={user} />} />
+        <Route path="/chat/:chatId" exact element={<ChatRoomPage colors={colors} user={user} socket={socket} />} />
       </Routes>
     </BrowserRouter>
   )
