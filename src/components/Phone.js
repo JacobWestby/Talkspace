@@ -34,9 +34,9 @@ const Phone = ({ AnimateOnPageLoad }) => {
     }, []);
 
     return (
-        <div className="h-[60%] rounded-2xl absolute sm:relative sm:h-[80%] z-10 bg-[#363946] sm:bg-transparent ">
+        <div className="h-[60%] rounded-2xl absolute sm:relative sm:h-[80%] z-10 bg-[#363946] sm:bg-transparent phone">
 
-            <svg className=" opacity-50 sm:opacity-100 phone" width="100%" height="100%" viewBox="0 0 401 635" fill="none"
+            <svg className=" opacity-50 sm:opacity-100" width="100%" height="100%" viewBox="0 0 401 635" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
                 <g filter="url(#filter0_d_3_16)">
                     <g filter="url(#filter1_d_3_16)">

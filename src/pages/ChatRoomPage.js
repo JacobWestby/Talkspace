@@ -12,6 +12,40 @@ const ChatRoomPage = ({ colors, user, socket }) => {
 
     GetCurrentRoom(setCurrentRoom);
 
+    UpdateScroll();
+
+    useEffect(() => {
+        socket.on("messageResponse", (message) => {
+            // Checks if message is from current room
+            if (message.roomID === currentRoom._id) {
+                // Adds new message to currentRoom state
+                setCurrentRoom(prevState => {
+                    return {
+                        ...prevState,
+                        chat: [...prevState.chat, message]
+                    }
+                })
+            }
+            setTimeout(() => UpdateScroll(), 200);
+        })
+    }, [socket, currentRoom._id]);
+
+    //  Adds new chat to DB
+    const AddNewChatToDB = async () => {
+        await axios.post(`/api/rooms/${currentRoom._id}`, {
+            name: user.userName,
+            message: newChat,
+            chatID: user.id,
+            id: uuidv4(),
+            roomID: currentRoom._id,
+            time: new Date().getTime(),
+            socketID: socket.id,
+        });
+        // Resets input field
+        setNewChat("");
+    };
+
+
     return (
         <>
             <BackArrow path={"/join"} />
@@ -19,15 +53,15 @@ const ChatRoomPage = ({ colors, user, socket }) => {
             {currentRoom._id ?
                 <div className="flex flex-col w-screen h-screen justify-between items-center" style={{ backgroundColor: colors.white }}>
                     <h1 className=" w-screen text-center font-semibold py-4 border-[#d5d5d5] border-b rounded-b-2xl shadow-lg">{currentRoom.name ? currentRoom.name : "Nameless Room"}</h1>
-                    <div className="px-3 sm:px-11 sm:w-[70%] flex flex-col gap-5 w-full overflow-y-scroll snap-y snap-proximity pb-3 h-full" id="chat">
+                    <div className="px-3 sm:px-11 sm:w-[70%] flex flex-col gap-5 w-full overflow-y-scroll pb-5 h-full" id="chat">
                         {currentRoom.chat.map(message => {
                             // if chaID and userID match message is on right side else it's on left side.
                             return message.chatID === user.id
-                                ? <div className=" flex flex-col self-end w-fit p-2 rounded-lg max-w-[50%] snap-end shadow-md" style={{ backgroundColor: colors.blue }} key={message.id}>
+                                ? <div className=" flex flex-col self-end w-fit p-2 rounded-lg max-w-[50%]  shadow-md" style={{ backgroundColor: colors.blue }} key={message.id}>
                                     <h3 className=" font-semibold">{message.name}</h3>
                                     <p className=" w-fit h-fit max-w-full whitespace-normal break-words">{message.message}</p>
                                 </div>
-                                : <div className=" flex flex-col w-fit p-2 rounded-lg max-w-[50%] snap-end shadow-md" style={{ backgroundColor: colors.blue }} key={message.id}>
+                                : <div className=" flex flex-col w-fit p-2 rounded-lg max-w-[50%]  shadow-md" style={{ backgroundColor: colors.blue }} key={message.id}>
                                     <h3 className=" font-semibold">{message.name}</h3>
                                     <p className=" w-fit h-fit max-w-full whitespace-normal break-words">{message.message}</p>
                                 </div>
@@ -39,8 +73,8 @@ const ChatRoomPage = ({ colors, user, socket }) => {
                         <button type="submit" onClick={(e) => {
                             e.preventDefault()
                             if (newChat.length > 0) {
-                                AddNewChatToDB(user, currentRoom, newChat, setNewChat, setCurrentRoom)
-                                UpdateScroll()
+                                AddNewChatToDB();
+                                UpdateScroll();
                             }
                         }} className=" mr-3">Send</button>
                     </form>
@@ -73,33 +107,15 @@ const GetCurrentRoom = (setCurrentRoom) => {
     }, []);
 };
 
-//  Adds new chat to DB and updates state to show new chat on screen
-const AddNewChatToDB = async (user, currentRoom, newChat, setNewChat, setCurrentRoom) => {
-    const response = await axios.post(`/api/rooms/${currentRoom._id}`, {
-        name: user.userName,
-        message: newChat,
-        chatID: user.id,
-        id: uuidv4(),
-        time: new Date().getTime()
-    }, {});
-
-    // Updates room state to show same chat as DB
-    const chat = response.data;
-    setCurrentRoom({
-        ...currentRoom,
-        chat: [...currentRoom.chat, chat]
-    });
-
-    // Resets input field
-    setNewChat("");
-};
-
 //  Updates scroll location to bottom of chat
 const UpdateScroll = () => {
-    setTimeout(() => {
-        let element = document.getElementById("chat");
-        element.scrollTop = element.scrollTop * 10;
-    }, 500);
+    const div = document.querySelector('#chat');
+    try {
+        div.lastElementChild.scrollIntoView({ behavior: 'smooth' });
+    } catch (err) {
+        console.log(err);
+    }
+
 };
 
 export default ChatRoomPage

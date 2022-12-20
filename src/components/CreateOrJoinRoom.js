@@ -73,6 +73,7 @@ const CreateNewRoom = async (inputText, SetRoomToLocalStorage, navigate) => {
         }, {});
         newRoom = response.data;
     } catch (err) {
+        console.log("Error creating room");
         console.log(err);
     };
 
@@ -84,4 +85,4 @@ const CreateNewRoom = async (inputText, SetRoomToLocalStorage, navigate) => {
     };
 };
 
-export default CreateRoom
+export default CreateRoom;

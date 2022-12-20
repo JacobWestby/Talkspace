@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { useState, useEffect } from 'react';
-import { Socket } from 'socket.io-client';
+import io from 'socket.io-client';
 
 // Components
 import Home from "./pages/Home";
@@ -9,12 +9,18 @@ import ChatRoomPage from './pages/ChatRoomPage';
 
 import "./input.css";
 
-const socket = new Socket("http://localhost:8000");
+const socket = io("http://localhost:8000");
 
 // ? Phone image flash random room names, but stop when user clicks create room and then input displays instead?
 
-// ! How are users gonna see other users new chats when chat states updates locally?
-// ! Need to get new chats from the DB when DB is changed
+// TODO: Favicon
+// TODO: Font?
+// TODO: Meta tags
+// TODO: Get ready for deployment, what do I need to do?
+
+// * Fix scroll to bottom on new message
+
+// * Fix so that changestreams only sends one update from backend and shows external messages
 
 // * Btns Hover DONE
 
