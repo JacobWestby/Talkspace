@@ -8,7 +8,14 @@ User will be able to:
 * Chat with anyone in the room
 * ...
 
-Users are prompted for a username when they enter the first time. A user can change their username whenever they want but still keep their ID. Any user can create a room and join a room. Chat is updated live. Below you can see the inital design and how it turned out.
+Build With:
+* React
+* Express
+* MongoDB
+* Node
+* TailwindCSS
+
+Users are prompted for a username when they enter the first time. A user can change their username whenever they want but still keep their ID. Any user can create a room and join a room. Chat is updated live. And the app is ofcourse fully responsive. Below you can see the inital design and how it turned out.
 
 ![Screenshot (32)](https://user-images.githubusercontent.com/62795911/199720194-e4839bd5-22a5-4bb3-875b-25e1d1ae7743.png)
 
