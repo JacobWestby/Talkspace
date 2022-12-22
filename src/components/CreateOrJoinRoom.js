@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { gsap } from "gsap";
@@ -15,7 +15,7 @@ const CreateRoom = ({ inputText, colors, setInputText, rooms }) => {
             {showCreate
                 // If showCreate is true removes join room btn
                 ? null
-                : <Link className=" bg-[#FEF6EC] p-5 rounded-2xl shadow-xl font-semibold btns opacity-0 hover:border-[#A7E2E3] hover:border-4 hover:scale-50 transition-all ease-in-out duration-300 " to="/join">Join Room</Link>
+                : <Link className=" bg-[#FEF6EC] p-5 rounded-2xl shadow-xl font-semibold btns hover:border-[#A7E2E3] hover:border-4 hover:scale-20 transition-all ease-in-out duration-300 " to="/join">Join Room</Link>
             }
 
             {
@@ -42,20 +42,20 @@ const CreateRoom = ({ inputText, colors, setInputText, rooms }) => {
                             CreateNewRoom(inputText, SetRoomToLocalStorage, navigate);
 
                         }} className=" bg-[#FEF6EC] rounded-2xl shadow-xl font-semibold sm:h-9 w-[80%] hover:border-[#A7E2E3] hover:border-4 transition-all ease-in-out duration-300">Create</button>
-                        <p onClick={() => setShowCreate(false)} className=" underline cursor-pointer hover:text-[#A7E2E3] transition-all ease-in-out duration-150">Cancel</p>
+                        <p onClick={() => {
+                            setShowCreate(false)
+                            // setTimeout(() => AnimateBtnsOnPageLoad(".btns"), 200)
+                        }} className=" underline cursor-pointer hover:text-[#A7E2E3] transition-all ease-in-out duration-150">Cancel</p>
                     </form>
                     // Sets showCreate to true 
-                    : <button onClick={() => setShowCreate(true)} className=" bg-[#FEF6EC] p-5 rounded-2xl shadow-xl font-semibold btns opacity-0 hover:border-[#A7E2E3] hover:border-4 hover:scale-50 transition-all ease-in-out duration-300 ">Create Room</button>
+                    : <button onClick={() => setShowCreate(true)} className=" bg-[#FEF6EC] p-5 rounded-2xl shadow-xl font-semibold btns hover:border-[#A7E2E3] hover:border-4 hover:scale-20 transition-all ease-in-out duration-300 ">Create Room</button>
             }
         </div >
     )
 };
 
 const AnimateBtnsOnPageLoad = (target) => {
-    useEffect(() => {
-        gsap.fromTo(target, { x: 1000, opacity: 0 }, { duration: 1, x: 0, opacity: 1, ease: "circ", stagger: 0.1 });
-        // eslint-disable-next-line
-    }, [])
+    gsap.fromTo(target, { x: 1000, }, { duration: 1, x: 0, ease: "circ", stagger: 0.1 });
 };
 
 // Sets room ID to localstorage to prevent crash on reload while in a room
