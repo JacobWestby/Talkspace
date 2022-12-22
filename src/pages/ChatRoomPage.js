@@ -45,7 +45,6 @@ const ChatRoomPage = ({ colors, user, socket }) => {
         setNewChat("");
     };
 
-
     return (
         <>
             <BackArrow path={"/join"} />
@@ -68,20 +67,26 @@ const ChatRoomPage = ({ colors, user, socket }) => {
                         }
                         )}
                     </div>
-                    <form action="submit" className="flex justify-between sm:justify-evenly h-[20%] sm:w-[80%] w-screen sm:h-[7%] sm:px-5 px-3 ">
-                        <input type="text" className=" w-[80%] h-fit min-h-[90%] whitespace-normal" value={newChat} onChange={(e) => setNewChat(e.target.value)} />
+                    <form action="submit" id="message" className="flex justify-between sm:justify-evenly h-[20%] sm:w-[80%] w-screen sm:h-[7%] sm:px-5 px-3 ">
+                        <textarea form="message" autoFocus className=" w-[80%] h-fit min-h-[70%] resize-none p-1 whitespace-normal focus:outline-[#999ba0]" value={newChat} onChange={(e) => setNewChat(e.target.value)} onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                                e.preventDefault();
+                                if (newChat.length > 0) {
+                                    AddNewChatToDB();
+                                }
+                            }
+                        }} ></textarea>
                         <button type="submit" onClick={(e) => {
                             e.preventDefault()
                             if (newChat.length > 0) {
                                 AddNewChatToDB();
-                                UpdateScroll();
                             }
-                        }} className=" mr-3">Send</button>
+                        }} className=" mr-3 text-md hover:text-[#9381FF] transition-all duration-200 ease-in-out" >Send</button>
                     </form>
                 </div>
                 : <div className="flex flex-col w-screen h-screen justify-between items-center" style={{ backgroundColor: colors.white }}>
                     <h1 className=" w-screen text-center font-semibold py-4 border-[#d5d5d5] border-b rounded-b-2xl shadow-lg">{currentRoom.name ? currentRoom.name : "Nameless Room"}</h1>
-                    <div></div>
+                    <div>Try refresh</div>
                 </div>
             }
         </>
@@ -115,7 +120,6 @@ const UpdateScroll = () => {
     } catch (err) {
         console.log(err);
     }
-
 };
 
 export default ChatRoomPage

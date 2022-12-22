@@ -48,7 +48,7 @@ const Home = ({ colors, rooms, setUser, user }) => {
 
 const AnimateOnPageLoad = (target) => {
     useEffect(() => {
-        gsap.fromTo(target, { y: 150 }, { duration: 1, y: 0, ease: "circ" });
+        gsap.fromTo(target, { y: 1000 }, { duration: 1, y: 0, ease: "circ" });
         // eslint-disable-next-line
     }, [])
 };

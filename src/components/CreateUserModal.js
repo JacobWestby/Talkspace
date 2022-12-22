@@ -20,7 +20,7 @@ const CreateUserModal = ({ colors, setUser, user, changeName, setChangeName, sho
             userName.length > 0
               ? <button className=" py-3 px-5 rounded-2xl shadow-xl font-semibold border border-green-300 hover:bg-[#9381FF] transition-all duration-500 ease-in-out" onClick={() => {
                 setShowModal(false)
-                CreateNewUser(userName, setUser);
+                CreateNewUser(setUser, userName);
               }} >Start chating</button>
               : <button className=" py-3 px-5 rounded-2xl shadow-xl font-semibold border border-red-300 hover:cursor-default" >Name Too Short!</button>
           }
@@ -56,14 +56,14 @@ const CreateUserModal = ({ colors, setUser, user, changeName, setChangeName, sho
   }
 };
 
-// * Creates a new user and saves it to local storage
+//  Creates a new user and saves it to local storage
 const CreateNewUser = (setUser, userName) => {
   const id = uuidv4();
   localStorage.setItem("user", JSON.stringify({ userName, id }));
   setUser({ userName, id });
 };
 
-// * Changes the name of the user and saves it to local storage
+// Changes the name of the user and saves it to local storage
 const UpdateUser = (setUser, userName) => {
   let id = JSON.parse(localStorage.getItem('user'));
   id = id.id;

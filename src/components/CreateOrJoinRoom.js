@@ -15,7 +15,7 @@ const CreateRoom = ({ inputText, colors, setInputText, rooms }) => {
             {showCreate
                 // If showCreate is true removes join room btn
                 ? null
-                : <Link className=" bg-[#FEF6EC] p-5 rounded-2xl shadow-xl font-semibold btns hover:border-[#A7E2E3] hover:border-4 hover:scale-50 transition-all ease-in-out duration-300 " to="/join">Join Room</Link>
+                : <Link className=" bg-[#FEF6EC] p-5 rounded-2xl shadow-xl font-semibold btns opacity-0 hover:border-[#A7E2E3] hover:border-4 hover:scale-50 transition-all ease-in-out duration-300 " to="/join">Join Room</Link>
             }
 
             {
@@ -31,12 +31,12 @@ const CreateRoom = ({ inputText, colors, setInputText, rooms }) => {
                                 : null
                         }
                         {
-                            // Checks so room with same name doesnt exist
+                            // Checks so room with same name doesn't exist
                             rooms.find(room => room.name === inputText)
                                 ? <p className=" font-thin">That name is taken</p>
                                 : null
                         }
-                        {/* Creates the new room and is disabled if input length is too short or room name is taken */}
+                        {/* Creates the new room, is disabled if input length is too short or room name is taken */}
                         <button disabled={inputText.length < 5 || rooms.find(room => room.name === inputText)} type="submit" onClick={(e) => {
                             e.preventDefault();
                             CreateNewRoom(inputText, SetRoomToLocalStorage, navigate);
@@ -45,7 +45,7 @@ const CreateRoom = ({ inputText, colors, setInputText, rooms }) => {
                         <p onClick={() => setShowCreate(false)} className=" underline cursor-pointer hover:text-[#A7E2E3] transition-all ease-in-out duration-150">Cancel</p>
                     </form>
                     // Sets showCreate to true 
-                    : <button onClick={() => setShowCreate(true)} className=" bg-[#FEF6EC] p-5 rounded-2xl shadow-xl font-semibold btns hover:border-[#A7E2E3] hover:border-4 hover:scale-50 transition-all ease-in-out duration-300 ">Create Room</button>
+                    : <button onClick={() => setShowCreate(true)} className=" bg-[#FEF6EC] p-5 rounded-2xl shadow-xl font-semibold btns opacity-0 hover:border-[#A7E2E3] hover:border-4 hover:scale-50 transition-all ease-in-out duration-300 ">Create Room</button>
             }
         </div >
     )
@@ -53,7 +53,7 @@ const CreateRoom = ({ inputText, colors, setInputText, rooms }) => {
 
 const AnimateBtnsOnPageLoad = (target) => {
     useEffect(() => {
-        gsap.fromTo(target, { x: 150, opacity: 0 }, { duration: 1, x: 0, opacity: 1, ease: "circ", stagger: 0.2 });
+        gsap.fromTo(target, { x: 1000, opacity: 0 }, { duration: 1, x: 0, opacity: 1, ease: "circ", stagger: 0.1 });
         // eslint-disable-next-line
     }, [])
 };
@@ -73,7 +73,6 @@ const CreateNewRoom = async (inputText, SetRoomToLocalStorage, navigate) => {
         }, {});
         newRoom = response.data;
     } catch (err) {
-        console.log("Error creating room");
         console.log(err);
     };
 
