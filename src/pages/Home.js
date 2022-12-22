@@ -16,7 +16,7 @@ const Home = ({ colors, rooms, setUser, user }) => {
     return (
         <>
             <CreateUserModal setUser={setUser} colors={colors} user={user} changeName={changeName} setChangeName={setChangeName} showModal={showModal} setShowModal={setShowModal} />
-            <header className=" h-screen w-screen relative">
+            <header className=" h-screen w-screen relative overflow-hidden">
                 {
                     // Displays the username and a button to change it in the top right corner IF username is ture
                     user.userName
@@ -48,7 +48,7 @@ const Home = ({ colors, rooms, setUser, user }) => {
 
 const AnimateOnPageLoad = (target) => {
     useEffect(() => {
-        gsap.fromTo(target, { y: 150 }, { duration: 1, y: 0, ease: "circ" });
+        gsap.fromTo(target, { y: 1000 }, { duration: 1, y: 0, ease: "circ" });
         // eslint-disable-next-line
     }, [])
 };
