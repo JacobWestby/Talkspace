@@ -9,7 +9,7 @@ import ChatRoomPage from './pages/ChatRoomPage';
 
 import "./input.css";
 
-const socket = io("http://localhost:8000");
+const socket = io("https://talkspace-372421.ew.r.appspot.com/");
 
 const App = () => {
   const [rooms, setRooms] = useState([]);
